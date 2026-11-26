@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Love World 💗</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(135deg, #ffe1eb, #f5ddff, #fff0e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #a34d75;
+}
+
+.card {
+  width: min(90%, 440px);
+  padding: 35px 25px;
+  background: #fff9fc;
+  border: 2px solid white;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 15px 50px #d68caf55;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  color: #e66d9c;
+  font-size: 30px;
+}
+
+h2 {
+  color: #d76d9c;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.heart {
+  font-size: 65px;
+  animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+  50% { transform: scale(1.2); }
+}
+
+button {
+  background: #ec8eb2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 13px 25px;
+  margin: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background: #d96896;
+  transform: scale(1.06);
+}
+
+.scene {
+  display: none;
+}
+
+.scene.active {
+  display: block;
+  animation: appear .7s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.floating {
+  position: fixed;
+  bottom: -30px;
+  animation: floatUp 7s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.small {
+  font-size: 13px;
+  color: #bd83a0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <section class="scene active" id="scene1">
+    <div class="heart">💗</div>
+    <h1>Our Little Love World</h1>
+    <p>A tiny world made of love, dreams and beautiful memories.</p>
+    <p>Are you ready for this magical journey? 🥹</p>
+    <button onclick="nextScene(2)">Let's Begin 💌</button>
+  </section>
+
+  <section class="scene" id="scene2">
+    <div class="heart">🌷</div>
+    <h2>Once Upon a Time...</h2>
+    <p>Two hearts lived in their own little worlds.</p>
+    <p>One day, destiny decided to bring their paths together.</p>
+    <button onclick="nextScene(3)">Continue 💕</button>
+  </section>
+
+  <section class="scene" id="scene3">
+    <div class="heart">🦋</div>
+    <h2>A Beautiful Beginning</h2>
+    <p>Some meetings are ordinary.</p>
+    <p>But some people slowly become your favourite part of every day.</p>
+    <button onclick="nextScene(4)">Next ✨</button>
+  </section>
+
+  <section class="scene" id="scene4">
+    <div class="heart">💞</div>
+    <h2>The Little Promise</h2>
+    <p>Through laughter, silly fights and endless memories...</p>
+    <p>May this little story always have another beautiful chapter.</p>
+    <button onclick="nextScene(5)">One Last Thing 💗</button>
+  </section>
+
+  <section class="scene" id="scene5">
+    <div class="heart">💍</div>
+    <h1>Level 1 Completed!</h1>
+    <p>Every beautiful love story deserves a beautiful adventure.</p>
+    <h2>Chapter 1: Unlocked 🔓</h2>
+    <p>Are you ready for the next adventure?</p>
+    <button onclick="restart()">Read Again 💌</button>
+    <p class="small">Level 2 — Catch My Heart coming soon!</p>
+  </section>
+
+</div>
+
+<script>
+function nextScene(number) {
+  document.querySelectorAll('.scene').forEach(scene => {
+    scene.classList.remove('active');
+  });
+
+  document.getElementById('scene' + number)
+    .classList.add('active');
+}
+
+function restart() {
+  nextScene(1);
+}
+
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'floating';
+  heart.innerHTML = ['💗','💕','🌸','💖'][Math.floor(Math.random()*4)];
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.fontSize = (15 + Math.random()*20) + 'px';
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createHeart, 900);
+</script>
+
+</body>
+</html>
