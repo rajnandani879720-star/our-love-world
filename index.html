@@ -124,6 +124,16 @@ button:disabled {
   top:0;
   font-size:27px;
   pointer-events:none;
+  animation: fall 2.5s linear forwards;
+}
+
+@keyframes fall {
+  from {
+    transform:translateY(0);
+  }
+  to {
+    transform:translateY(370px);
+  }
 }
 
 /* Level 3 */
