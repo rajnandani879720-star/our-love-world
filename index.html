@@ -421,5 +421,239 @@ function finishCatchGame(won) {
   }
 }
 </script>
+<style>
+#kissLevel {
+  display: none;
+  width: min(92%, 440px);
+  padding: 25px 18px;
+  background: #fff9fc;
+  border-radius: 28px;
+  text-align: center;
+  color: #a34d75;
+  box-shadow: 0 12px 40px #d88aab55;
+  position: relative;
+  z-index: 10;
+}
+
+#kissArea {
+  height: 300px;
+  max-width: 360px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: linear-gradient(135deg,#ffe1ed,#f3ddff);
+  border: 2px solid white;
+  touch-action: none;
+}
+
+.kissLip {
+  position: absolute;
+  top: 125px;
+  font-size: 55px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  z-index: 2;
+}
+
+#leftLip { left: 12px; }
+#rightLip { right: 12px; }
+
+#kissMessage {
+  min-height: 45px;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.kissHeart {
+  position: absolute;
+  pointer-events: none;
+  font-size: 27px;
+  animation: kissFly 1.3s ease-out forwards;
+  z-index: 5;
+}
+
+@keyframes kissFly {
+  to {
+    transform: translateY(-130px) scale(1.8) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+.kissBurst {
+  animation: kissPop .4s ease;
+}
+
+@keyframes kissPop {
+  50% { transform: scale(1.35); }
+}
+</style>
+
+<div id="kissLevel">
+
+  <div style="font-size:42px">💋</div>
+  <h2>Level 3: Bring Our Lips Together</h2>
+  <p>Drag both lips together and make them kiss! 😘</p>
+
+  <h3>Kisses: <span id="kissScore">0</span> / 5</h3>
+
+  <div id="kissArea">
+    <div class="kissLip" id="leftLip">👄</div>
+    <div class="kissLip" id="rightLip">👄</div>
+  </div>
+
+  <div id="kissMessage">Bring the lips together! 💗</div>
+
+  <button onclick="resetKissGame()">Play Again 💕</button>
+  <button onclick="backToLevel2()">Back</button>
+
+</div>
+
+<script>
+const kissLevel = document.getElementById("kissLevel");
+const kissArea = document.getElementById("kissArea");
+const leftLip = document.getElementById("leftLip");
+const rightLip = document.getElementById("rightLip");
+
+let kissCount = 0;
+let kissBusy = false;
+let kissPositions = [12, 12];
+let activeLip = null;
+
+function openKissGame() {
+  catchLevel.style.display = "none";
+  kissLevel.style.display = "block";
+  resetKissGame();
+}
+
+function backToLevel2() {
+  kissLevel.style.display = "none";
+  catchLevel.style.display = "block";
+}
+
+function resetKissGame() {
+  kissCount = 0;
+  kissBusy = false;
+  kissPositions = [12, 12];
+
+  leftLip.style.left = "12px";
+  leftLip.style.right = "auto";
+  rightLip.style.left = "auto";
+  rightLip.style.right = "12px";
+
+  document.getElementById("kissScore").textContent = "0";
+  document.getElementById("kissMessage").textContent =
+    "Bring the lips together! 💗";
+}
+
+function dragLip(element, side) {
+  element.addEventListener("pointerdown", event => {
+    if (kissBusy || kissCount >= 5) return;
+
+    activeLip = side;
+    element.setPointerCapture(event.pointerId);
+  });
+
+  element.addEventListener("pointermove", event => {
+    if (activeLip !== side || kissBusy) return;
+
+    const rect = kissArea.getBoundingClientRect();
+    const width = element.offsetWidth;
+
+    let x = event.clientX - rect.left - width / 2;
+    x = Math.max(0, Math.min(x, rect.width - width));
+
+    if (side === 0) {
+      kissPositions[0] = x;
+      element.style.left = x + "px";
+      element.style.right = "auto";
+    } else {
+      kissPositions[1] = rect.width - x - width;
+      element.style.right = kissPositions[1] + "px";
+      element.style.left = "auto";
+    }
+
+    checkKiss();
+  });
+
+  element.addEventListener("pointerup", () => {
+    activeLip = null;
+  });
+
+  element.addEventListener("pointercancel", () => {
+    activeLip = null;
+  });
+}
+
+dragLip(leftLip, 0);
+dragLip(rightLip, 1);
+
+function checkKiss() {
+  const a = leftLip.getBoundingClientRect();
+  const b = rightLip.getBoundingClientRect();
+
+  if (
+    a.right >= b.left &&
+    a.left <= b.right &&
+    a.bottom >= b.top &&
+    a.top <= b.bottom
+  ) {
+    celebrateKiss();
+  }
+}
+
+function celebrateKiss() {
+  if (kissBusy || kissCount >= 5) return;
+
+  kissBusy = true;
+  kissCount++;
+
+  document.getElementById("kissScore").textContent = kissCount;
+  document.getElementById("kissMessage").textContent =
+    ["Muaaah! 😘","So cute! 💗","Another kiss! 💋",
+     "Lots of love! 💕","Perfect kiss! 🥹"][kissCount-1];
+
+  leftLip.classList.add("kissBurst");
+  rightLip.classList.add("kissBurst");
+
+  for (let i = 0; i < 12; i++) {
+    const heart = document.createElement("div");
+    heart.className = "kissHeart";
+    heart.textContent = ["💋","💗","😘","💕"][
+      Math.floor(Math.random()*4)
+    ];
+
+    heart.style.left = (35 + Math.random()*30) + "%";
+    heart.style.top = (45 + Math.random()*20) + "%";
+
+    kissArea.appendChild(heart);
+    setTimeout(() => heart.remove(), 1400);
+  }
+
+  setTimeout(() => {
+    leftLip.classList.remove("kissBurst");
+    rightLip.classList.remove("kissBurst");
+    kissBusy = false;
+
+    if (kissCount === 5) {
+      document.getElementById("kissMessage").innerHTML =
+        "🎉 Level 3 Completed! Lots of love! 💗";
+    }
+  }, 700);
+}
+
+// Unlock Level 3 after Level 2 is won
+const oldKissFinish = finishCatchGame;
+
+finishCatchGame = function(won) {
+  oldKissFinish(won);
+
+  if (won) {
+    document.getElementById("catchResult").innerHTML +=
+      '<br><button onclick="openKissGame()">Play Level 3 💋</button>';
+  }
+};
+</script>
 </body>
 </html>
