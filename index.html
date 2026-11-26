@@ -1131,5 +1131,250 @@ if (typeof finishDate === "function") {
 }
 </script>
 <!-- END LEVEL 5 -->
+<!-- FINAL ROMANTIC PAGE -->
+<style>
+#lastLovePage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 35px 18px 45px;
+  text-align: center;
+  color: #a83b70;
+  background: linear-gradient(145deg, #fff0f6, #ffd6e7, #ffeaf2);
+  font-family: Arial, sans-serif;
+}
+
+#lastLovePage h1 {
+  color: #df5795;
+  font-size: 30px;
+  text-shadow: 0 2px 8px #ffc1da;
+}
+
+#lastLovePage h2 {
+  color: #d94f91;
+}
+
+.last-message {
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 10px auto;
+}
+
+.last-heart {
+  position: fixed;
+  bottom: -40px;
+  pointer-events: none;
+  z-index: 20001;
+  animation: floatLastHeart linear forwards;
+}
+
+@keyframes floatLastHeart {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+.last-hug-btn {
+  border: 0;
+  border-radius: 30px;
+  padding: 15px 28px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #ff72aa, #e94f91);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px #e98bb4;
+  cursor: pointer;
+}
+
+#hugGiftPopup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20003;
+  background: rgba(100, 30, 65, .35);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.hug-gift {
+  background: #fff0f6;
+  border: 3px solid #ffacd0;
+  border-radius: 25px;
+  padding: 28px 20px;
+  width: min(300px, 85vw);
+  box-shadow: 0 8px 35px #d65b91;
+  animation: giftAppear .5s ease;
+}
+
+@keyframes giftAppear {
+  from { transform: scale(.3) rotate(-12deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+#loveBurst {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20005;
+  background: linear-gradient(145deg, #fff0f6, #ffd4e7, #ffeaf2);
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+}
+
+#loveBurst h1 {
+  font-size: clamp(30px, 8vw, 48px);
+  animation: loveZoom .7s ease;
+}
+
+@keyframes loveZoom {
+  0% { transform: scale(.1); opacity: 0; }
+  75% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.burst-emoji {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 30px;
+  pointer-events: none;
+  animation: emojiBurst 1.8s ease-out forwards;
+}
+
+@keyframes emojiBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(.2) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(1.5) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.gift-open-btn {
+  background: #ed6a9f;
+  color: white;
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 15px;
+  cursor: pointer;
+}
+</style>
+
+<div id="lastLovePage">
+  <div style="font-size:35px;">💗🌸💗</div>
+
+  <h1>I Love You Duggu ❤️</h1>
+  <h2>My Kuchupuchu 🥰</h2>
+
+  <div class="last-message">
+    <p>You are perfect for me. ❤️</p>
+    <p>You are my whole world 🌎, Duggu.</p>
+    <p>I wish to make countless beautiful memories with you. 💞</p>
+    <p>Forever my favourite person! 💋</p>
+  </div>
+
+  <div style="font-size:35px; margin-top:20px;">
+    🌷💕🌸💕🌷
+  </div>
+
+  <button class="last-hug-btn" onclick="showHugGift()">
+    🤗 Send Me a Hug 🤗
+  </button>
+
+  <p style="font-size:13px; color:#c65b8e;">
+    A little surprise is waiting for you... 💌
+  </p>
+</div>
+
+<div id="hugGiftPopup">
+  <div class="hug-gift">
+    <div style="font-size:65px;">🎁💗</div>
+    <h2>Open Me, Duggu 💌</h2>
+    <p>A special surprise is waiting inside!</p>
+    <button class="gift-open-btn" onclick="openHugGift()">
+      Open Your Gift 💝
+    </button>
+  </div>
+</div>
+
+<div id="loveBurst">
+  <h1>I LOVE YOU SO MUCH! 💗</h1>
+  <h2>My Duggu, My Kuchupuchu 🥰</h2>
+  <div style="font-size:45px;">🌸💐🤗😘💋</div>
+  <p style="font-size:19px; color:#a83b70;">
+    Lots of flowers, hugs and kisses for you! 💞
+  </p>
+</div>
+
+<script>
+let lastHeartTimer;
+
+function completeLoveWorld() {
+  document.getElementById("foreverLevel").style.display = "none";
+  document.getElementById("lastLovePage").style.display = "block";
+
+  if (!lastHeartTimer) {
+    lastHeartTimer = setInterval(createLastHeart, 350);
+  }
+}
+
+function createLastHeart() {
+  const heart = document.createElement("span");
+  heart.className = "last-heart";
+  heart.textContent = ["💗", "💕", "💖", "💞", "🌸"][Math.floor(Math.random() * 5)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (18 + Math.random() * 22) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+  document.getElementById("lastLovePage").appendChild(heart);
+  setTimeout(() => heart.remove(), 8500);
+}
+
+function showHugGift() {
+  document.getElementById("hugGiftPopup").style.display = "flex";
+}
+
+function openHugGift() {
+  document.getElementById("hugGiftPopup").style.display = "none";
+
+  const burst = document.getElementById("loveBurst");
+  burst.style.display = "flex";
+
+  const emojis = ["🌸", "💐", "🤗", "😘", "💋", "💗", "💕", "🌷", "❤️", "🥰"];
+
+  for (let i = 0; i < 55; i++) {
+    const item = document.createElement("span");
+    item.className = "burst-emoji";
+    item.textContent = emojis[i % emojis.length];
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 100 + Math.random() * 250;
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+
+    item.style.setProperty("--x", x + "px");
+    item.style.setProperty("--y", y + "px");
+    item.style.animationDelay = (Math.random() * .5) + "s";
+
+    burst.appendChild(item);
+    setTimeout(() => item.remove(), 2600);
+  }
+}
+</script>
+<!-- END FINAL ROMANTIC PAGE -->
 </body>
 </html>
