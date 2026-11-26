@@ -913,5 +913,223 @@ celebrateKiss = function() {
   -webkit-overflow-scrolling: touch;
 }
 </style>
+<!-- LEVEL 5: FOREVER TOGETHER -->
+<style>
+#foreverLevel {
+  display: none;
+  position: fixed;
+  top: 12px;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(94%, 460px);
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 22px 16px 35px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #250d2b, #57143e, #190d2c);
+  color: white;
+  text-align: center;
+  z-index: 10000;
+  font-family: Arial, sans-serif;
+  -webkit-overflow-scrolling: touch;
+}
+#foreverLevel h1 { color: #ffb6d9; }
+#foreverLevel h2 { color: #ffd2e7; }
+.forever-card {
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,190,220,.3);
+  border-radius: 18px;
+  padding: 18px 12px;
+  margin: 16px 0;
+}
+.forever-btn {
+  background: linear-gradient(90deg,#ff5c9a,#ff91bd);
+  color: white;
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 20px;
+  margin: 8px 4px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.forever-emoji {
+  display: inline-block;
+  font-size: 27px;
+  margin: 5px;
+  animation: hugPop 1.1s ease-in-out infinite alternate;
+}
+@keyframes hugPop {
+  from { transform: translateY(8px) scale(.8); }
+  to { transform: translateY(-12px) scale(1.2); }
+}
+#hugRain { min-height: 65px; }
+#momentMessage {
+  font-size: 19px;
+  line-height: 1.6;
+  color: #ffe0ed;
+  min-height: 65px;
+}
+#loveLetter {
+  display: none;
+  background: #fff0f6;
+  color: #79234b;
+  border-radius: 16px;
+  padding: 20px;
+  line-height: 1.8;
+  text-align: left;
+  margin-top: 15px;
+}
+#finalCelebration {
+  display: none;
+  padding: 20px 5px;
+}
+</style>
+
+<div id="foreverLevel">
+  <h1>💗 Level 5 💗</h1>
+  <h2>Forever Together</h2>
+  <p>One more beautiful chapter of our story...</p>
+
+  <div class="forever-card">
+    <h2>🌙 Our First Meeting</h2>
+    <div style="font-size:45px;">🌌</div>
+    <p><b>2 April • Night • A dark room</b></p>
+    <p id="meetingText">
+      It was the night we met face-to-face.
+      You were there, I was there...
+    </p>
+    <button class="forever-btn" onclick="revealMeeting()">
+      Reveal Our Memory 💞
+    </button>
+  </div>
+
+  <div class="forever-card">
+    <h2>🤗 Hug Time</h2>
+    <p>Sometimes a hug says everything!</p>
+    <button class="forever-btn" onclick="sendHugs()">
+      Send Me Lots of Hugs 🤗
+    </button>
+    <div id="hugRain"></div>
+  </div>
+
+  <div class="forever-card">
+    <h2>✨ Our Special Moments</h2>
+    <div style="font-size:42px;">🌙⭐💗</div>
+    <p id="momentMessage">
+      Every little moment can become a beautiful memory.
+    </p>
+    <button class="forever-btn" onclick="nextMoment()">
+      Next Memory 💫
+    </button>
+  </div>
+
+  <div class="forever-card">
+    <h2>💌 A Letter For You</h2>
+    <div style="font-size:55px;">💌</div>
+    <button class="forever-btn" onclick="openLoveLetter()">
+      Open Your Letter 💗
+    </button>
+    <div id="loveLetter">
+      <h3>Dear You, ❤️</h3>
+      Our story began on 2 April.
+      I'm glad I started that first conversation.
+      Every little moment has become a memory
+      I want to keep close.
+      Here's to more smiles, hugs, and beautiful
+      chapters together. 💗
+      <p style="text-align:right;">With lots of love 💕</p>
+    </div>
+  </div>
+
+  <div class="forever-card">
+    <h2>🎉 The Final Celebration</h2>
+    <p>Are you ready to complete our Love World?</p>
+    <button class="forever-btn" onclick="completeLoveWorld()">
+      Complete Our Love World 💖
+    </button>
+    <div id="finalCelebration">
+      <div style="font-size:45px;">💗🎉🥳💗</div>
+      <h1>Our Love World — Completed!</h1>
+      <h2>Forever Together 💞</h2>
+      <p>And this is just another beautiful beginning... ✨</p>
+    </div>
+  </div>
+
+  <button class="forever-btn" onclick="backToDate()">
+    ⬅ Back to Level 4
+  </button>
+</div>
+
+<script>
+function openForeverLevel() {
+  const date = document.getElementById("dateLevel");
+  if (date) date.style.display = "none";
+  document.getElementById("foreverLevel").style.display = "block";
+}
+
+function backToDate() {
+  document.getElementById("foreverLevel").style.display = "none";
+  const date = document.getElementById("dateLevel");
+  if (date) date.style.display = "block";
+}
+
+function revealMeeting() {
+  document.getElementById("meetingText").innerHTML =
+    "We met face-to-face on 2 April, at night, in a dark room. And guess what? I started our first conversation. A small moment that became a special memory. 💗";
+}
+
+function sendHugs() {
+  const area = document.getElementById("hugRain");
+  area.innerHTML = "";
+  for (let i = 0; i < 20; i++) {
+    const hug = document.createElement("span");
+    hug.className = "forever-emoji";
+    hug.textContent = i % 2 === 0 ? "🤗" : "💗";
+    area.appendChild(hug);
+  }
+}
+
+const specialMoments = [
+  "Under the same moon, somewhere, two hearts share a beautiful story. 🌙",
+  "A little smile can make an ordinary day special. 😊💗",
+  "Some memories deserve to be kept forever. ✨",
+  "Here's to more laughter, hugs and happy moments! 🤗💕"
+];
+let momentIndex = 0;
+
+function nextMoment() {
+  document.getElementById("momentMessage").textContent =
+    specialMoments[momentIndex];
+  momentIndex = (momentIndex + 1) % specialMoments.length;
+}
+
+function openLoveLetter() {
+  document.getElementById("loveLetter").style.display = "block";
+}
+
+function completeLoveWorld() {
+  document.getElementById("finalCelebration").style.display = "block";
+}
+</script>
+
+<script>
+/* Add Level 5 unlock button after Level 4's finish action */
+if (typeof finishDate === "function") {
+  const originalFinishDateForLevel5 = finishDate;
+  finishDate = function() {
+    originalFinishDateForLevel5();
+    const result = document.getElementById("dateResult");
+    if (result && !document.getElementById("unlockLevel5Button")) {
+      result.insertAdjacentHTML("beforeend",
+        '<br><button id="unlockLevel5Button" class="forever-btn" onclick="openForeverLevel()">Unlock Level 5 💗</button>');
+    }
+  };
+}
+</script>
+<!-- END LEVEL 5 -->
 </body>
 </html>
