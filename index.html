@@ -6,208 +6,106 @@
 <title>Our Little Love World 💗</title>
 
 <style>
-* { box-sizing:border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
-  margin:0;
-  min-height:100vh;
-  padding:20px 10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:'Trebuchet MS',Arial,sans-serif;
-  background:linear-gradient(135deg,#ffe1eb,#f5ddff,#fff0e8);
-  color:#a34d75;
-  overflow-x:hidden;
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(135deg, #ffe1eb, #f5ddff, #fff0e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #a34d75;
 }
 
 .card {
-  width:min(95%,460px);
-  padding:30px 20px;
-  background:#fff9fc;
-  border:2px solid white;
-  border-radius:28px;
-  text-align:center;
-  box-shadow:0 12px 40px #d88aab55;
-  position:relative;
-  z-index:2;
+  width: min(90%, 440px);
+  padding: 35px 25px;
+  background: #fff9fc;
+  border: 2px solid white;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 15px 50px #d68caf55;
+  position: relative;
+  z-index: 2;
 }
 
-h1 {color:#e66b9b;}
-h2 {color:#d76d9c;}
-p {line-height:1.7;}
+h1 {
+  color: #e66d9c;
+  font-size: 30px;
+}
+
+h2 {
+  color: #d76d9c;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 16px;
+}
 
 .heart {
-  font-size:60px;
-  animation:beat 1s infinite;
+  font-size: 65px;
+  animation: beat 1.2s infinite;
 }
 
 @keyframes beat {
-  50% {transform:scale(1.2);}
+  50% { transform: scale(1.2); }
 }
 
 button {
-  border:0;
-  border-radius:25px;
-  padding:13px 22px;
-  margin:8px;
-  background:#ec8eb2;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-  transition:.3s;
+  background: #ec8eb2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 13px 25px;
+  margin: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
 }
 
 button:hover {
-  background:#d96896;
-  transform:scale(1.05);
+  background: #d96896;
+  transform: scale(1.06);
 }
 
-button:disabled {
-  opacity:.6;
-  cursor:not-allowed;
+.scene {
+  display: none;
 }
 
-.page {display:none;}
-.page.active {
-  display:block;
-  animation:appear .6s ease;
+.scene.active {
+  display: block;
+  animation: appear .7s ease;
 }
 
 @keyframes appear {
-  from {opacity:0;transform:translateY(15px);}
-  to {opacity:1;transform:translateY(0);}
-}
-
-.small {
-  color:#bd83a0;
-  font-size:13px;
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .floating {
-  position:fixed;
-  bottom:-35px;
-  pointer-events:none;
-  z-index:20;
-  animation:floatUp 6s linear forwards;
+  position: fixed;
+  bottom: -30px;
+  animation: floatUp 7s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
-  to {transform:translateY(-110vh) rotate(360deg);opacity:0;}
-}
-
-/* Level 2 */
-
-#catchArea {
-  width:100%;
-  max-width:340px;
-  height:330px;
-  margin:18px auto;
-  position:relative;
-  overflow:hidden;
-  border-radius:20px;
-  border:2px solid #f4b4d0;
-  background:linear-gradient(#ffe3f0,#f2e2ff);
-  touch-action:none;
-}
-
-#basket {
-  position:absolute;
-  bottom:8px;
-  left:130px;
-  font-size:42px;
-  user-select:none;
-}
-
-.fallingHeart {
-  position:absolute;
-  top:0;
-  font-size:27px;
-  pointer-events:none;
-  animation: fall 2.5s linear forwards;
-}
-
-@keyframes fall {
-  from {
-    transform:translateY(0);
-  }
   to {
-    transform:translateY(370px);
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
   }
 }
 
-/* Level 3 */
-
-.option {
-  display:block;
-  width:100%;
-  background:#ffe6f0;
-  color:#a34d75;
-  border:2px solid #f7c5da;
-  border-radius:18px;
-  margin:10px 0;
+.small {
+  font-size: 13px;
+  color: #bd83a0;
 }
-
-.option:hover {background:#ffd1e5;}
-
-/* Level 4 */
-
-.wordBox {
-  background:#ffe8f1;
-  padding:15px;
-  border-radius:18px;
-  margin:15px 0;
-}
-
-select {
-  padding:10px;
-  border-radius:15px;
-  border:1px solid #e9a0bd;
-  color:#a34d75;
-  background:white;
-  font-size:15px;
-  max-width:100%;
-}
-
-/* Level 5 */
-
-.memoryGrid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin:20px 0;
-}
-
-.memoryCard {
-  min-height:115px;
-  border-radius:18px;
-  border:2px solid #f7c5da;
-  background:#ffe6f0;
-  color:#a34d75;
-  font-size:17px;
-  display:grid;
-  place-items:center;
-  padding:12px;
-  cursor:pointer;
-}
-
-.memoryCard.opened {
-  background:#fff0f7;
-}
-
-/* Final page */
-
-#finalPage {
-  background:linear-gradient(135deg,#ffe0ed,#f1dcff,#fff0e8);
-}
-
-.loveMessage {
-  font-size:18px;
-  line-height:2;
-  color:#b84f80;
-}
-
-.hugButton {font-size:18px;}
 
 </style>
 </head>
@@ -216,485 +114,312 @@ select {
 
 <div class="card">
 
-<!-- LEVEL 1 -->
+  <section class="scene active" id="scene1">
+    <div class="heart">💗</div>
+    <h1>Our Little Love World</h1>
+    <p>A tiny world made of love, dreams and beautiful memories.</p>
+    <p>Are you ready for this magical journey? 🥹</p>
+    <button onclick="nextScene(2)">Let's Begin 💌</button>
+  </section>
 
-<section class="page active" id="level1">
+  <section class="scene" id="scene2">
+    <div class="heart">🌷</div>
+    <h2>Once Upon a Time...</h2>
+    <p>Two hearts lived in their own little worlds.</p>
+    <p>One day, destiny decided to bring their paths together.</p>
+    <button onclick="nextScene(3)">Continue 💕</button>
+  </section>
 
-  <div class="heart">💗</div>
-  <h1>Our Little Love World</h1>
-  <p>A tiny world made of love, dreams and beautiful memories.</p>
-  <p>Ready for our magical journey? 🥹</p>
-  <button onclick="storyNext(1)">Let's Begin 💌</button>
+  <section class="scene" id="scene3">
+    <div class="heart">🦋</div>
+    <h2>A Beautiful Beginning</h2>
+    <p>Some meetings are ordinary.</p>
+    <p>But some people slowly become your favourite part of every day.</p>
+    <button onclick="nextScene(4)">Next ✨</button>
+  </section>
 
-</section>
+  <section class="scene" id="scene4">
+    <div class="heart">💞</div>
+    <h2>The Little Promise</h2>
+    <p>Through laughter, silly fights and endless memories...</p>
+    <p>May this little story always have another beautiful chapter.</p>
+    <button onclick="nextScene(5)">One Last Thing 💗</button>
+  </section>
 
-<section class="page" id="story2">
-  <div class="heart">🌷</div>
-  <h2>Once Upon a Time...</h2>
-  <p>Two hearts lived in their own little worlds.</p>
-  <p>One day, destiny brought their paths together. 💕</p>
-  <button onclick="storyNext(2)">Continue ✨</button>
-</section>
-
-<section class="page" id="story3">
-  <div class="heart">🦋</div>
-  <h2>A Beautiful Beginning</h2>
-  <p>Some people slowly become your favourite part of every day.</p>
-  <p>And some stories become your favourite forever. ❤️</p>
-  <button onclick="storyNext(3)">Next 💗</button>
-</section>
-
-<section class="page" id="story4">
-  <div class="heart">💞</div>
-  <h2>The Little Promise</h2>
-  <p>Through laughter, silly fights and endless memories...</p>
-  <p>May our story always have another beautiful chapter.</p>
-  <button onclick="showPage('level2')">Complete Level 1 🎉</button>
-</section>
-
-<!-- LEVEL 2 -->
-
-<section class="page" id="level2">
-
-  <div class="heart">💌</div>
-  <h2>Level 2: Catch My Heart</h2>
-  <p>Catch 20 hearts in 30 seconds!</p>
-
-  <h3>Score: <span id="score">0</span>/20</h3>
-  <h3>Time: <span id="timer">30</span>s</h3>
-
-  <div id="catchArea">
-    <div id="basket">🧺</div>
-  </div>
-
-  <p>Move your mouse or finger to catch hearts!</p>
-  <p id="catchMessage"></p>
-
-  <button onclick="startCatch()">Start Game 💗</button>
-  <button id="level2Next" style="display:none" onclick="startQuiz()">
-    Play Level 3 ❤️
-  </button>
-
-</section>
-
-<!-- LEVEL 3 -->
-
-<section class="page" id="level3">
-
-  <div class="heart">❤️</div>
-  <h2>Level 3: Love Quiz</h2>
-  <p>Let's have some fun together! 🥰</p>
-
-  <h3 id="questionNumber">Question 1/6</h3>
-  <h3 id="question"></h3>
-
-  <div id="answers"></div>
-  <p id="quizMessage"></p>
-
-  <button id="nextQuestion" style="display:none" onclick="nextQuiz()">
-    Next Question 💕
-  </button>
-
-</section>
-
-<!-- LEVEL 4 -->
-
-<section class="page" id="level4">
-
-  <div class="heart">💌</div>
-  <h2>Level 4: Complete My Love Letter</h2>
-  <p>Choose the missing words and complete this letter!</p>
-
-  <div class="wordBox">
-    <p>You are my favourite <select id="word1">
-      <option value="">Choose</option>
-      <option value="person">person</option>
-      <option value="flower">flower</option>
-      <option value="planet">planet</option>
-    </select>.</p>
-
-    <p>You make my heart feel <select id="word2">
-      <option value="">Choose</option>
-      <option value="happy">happy</option>
-      <option value="angry">angry</option>
-      <option value="sleepy">sleepy</option>
-    </select>.</p>
-
-    <p>I want to stay with you <select id="word3">
-      <option value="">Choose</option>
-      <option value="forever">forever</option>
-      <option value="tomorrow">tomorrow</option>
-      <option value="sometimes">sometimes</option>
-    </select>.</p>
-
-    <p>You are my whole <select id="word4">
-      <option value="">Choose</option>
-      <option value="world">world</option>
-      <option value="school">school</option>
-      <option value="garden">garden</option>
-    </select>.</p>
-  </div>
-
-  <p id="letterMessage"></p>
-
-  <button onclick="checkLetter()">Complete Letter 💗</button>
-
-  <button id="level4Next" style="display:none" onclick="startMemory()">
-    Play Level 5 🥰
-  </button>
-
-</section>
-
-<!-- LEVEL 5 -->
-
-<section class="page" id="level5">
-
-  <div class="heart">🥰</div>
-  <h2>Level 5: Favourite Memories</h2>
-  <p>Open all the memory cards to discover little surprises!</p>
-
-  <div class="memoryGrid" id="memoryGrid"></div>
-
-  <p id="memoryMessage">Open all 4 cards! 💗</p>
-
-  <button id="finalUnlock" style="display:none" onclick="showPage('finalPage')">
-    Open Final Surprise 💌
-  </button>
-
-</section>
-
-<!-- FINAL PAGE -->
-
-<section class="page" id="finalPage">
-
-  <div class="heart">💗</div>
-
-  <h1>For My Duggu</h1>
-  <h2>My Kuchupuchu 😘</h2>
-
-  <div class="loveMessage">
-    I Love You, Duggu! ❤️<br>
-    You are perfect for me.<br>
-    You are my whole world 🌎<br>
-    You make my ordinary days magical. ✨<br>
-    In every lifetime, I would choose you again. 💍
-  </div>
-
-  <h2>Forever Yours 💗</h2>
-
-  <button class="hugButton" onclick="sendHugs()">
-    One Big Hug? 🤗
-  </button>
-
-  <p id="hugMessage"></p>
-
-</section>
+  <section class="scene" id="scene5">
+    <div class="heart">💍</div>
+    <h1>Level 1 Completed!</h1>
+    <p>Every beautiful love story deserves a beautiful adventure.</p>
+    <h2>Chapter 1: Unlocked 🔓</h2>
+    <p>Are you ready for the next adventure?</p>
+    <button onclick="restart()">Read Again 💌</button>
+    <p class="small">Level 2 — Catch My Heart coming soon!</p>
+  </section>
 
 </div>
 
 <script>
-
-/* GENERAL NAVIGATION */
-
-function showPage(id) {
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
+function nextScene(number) {
+  document.querySelectorAll('.scene').forEach(scene => {
+    scene.classList.remove('active');
   });
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
+
+  document.getElementById('scene' + number)
+    .classList.add('active');
 }
 
-function storyNext(number) {
-  showPage("story" + (number+1));
+function restart() {
+  nextScene(1);
 }
-
-/* FLOATING HEARTS */
-
-function floatingHeart() {
-  const el = document.createElement("div");
-  el.className = "floating";
-  el.textContent = ["💗","💕","🌸","💖","🌷"][
-    Math.floor(Math.random()*5)
-  ];
-  el.style.left = Math.random()*100+"vw";
-  el.style.fontSize = (18+Math.random()*20)+"px";
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(),6000);
-}
-
-setInterval(floatingHeart,1000);
-
-/* LEVEL 2 - CATCH HEARTS */
-
-const area = document.getElementById("catchArea");
-const basket = document.getElementById("basket");
-
-let score = 0;
-let seconds = 30;
-let running = false;
-let spawnTimer = null;
-let gameTimer = null;
-let collisionTimer = null;
-let heartItems = [];
-
-function moveBasket(event) {
-  if(!running) return;
-  const rect = area.getBoundingClientRect();
-  let x = event.clientX-rect.left-basket.offsetWidth/2;
-  x = Math.max(0,Math.min(x,area.clientWidth-basket.offsetWidth));
-  basket.style.left=x+"px";
-}
-
-area.addEventListener("pointermove",moveBasket);
 
 function createHeart() {
-  if(!running) return;
+  const heart = document.createElement('div');
+  heart.className = 'floating';
+  heart.innerHTML = ['💗','💕','🌸','💖'][Math.floor(Math.random()*4)];
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.fontSize = (15 + Math.random()*20) + 'px';
+  document.body.appendChild(heart);
 
-  const h = document.createElement("div");
-  h.className="fallingHeart";
-  h.textContent=["💗","💖","💕","💝"][
-    Math.floor(Math.random()*4)
-  ];
-  h.style.left=Math.random()*(area.clientWidth-35)+"px";
-  h.style.top="-30px";
-  area.appendChild(h);
-  heartItems.push(h);
+  setTimeout(() => heart.remove(), 7000);
 }
 
-function checkHearts() {
-  if(!running) return;
-
-  const b=basket.getBoundingClientRect();
-
-  heartItems=heartItems.filter(h=>{
-    if(!h.isConnected) return false;
-
-    const r=h.getBoundingClientRect();
-
-    if(r.bottom>=b.top && r.top<=b.bottom &&
-       r.right>=b.left && r.left<=b.right) {
-      h.remove();
-      score++;
-      document.getElementById("score").textContent=score;
-
-      if(score>=20) endCatch(true);
-      return false;
-    }
-
-    if(r.top>area.getBoundingClientRect().bottom) {
-      h.remove();
-      return false;
-    }
-
-    return true;
-  });
-}
-
-function startCatch() {
-  clearInterval(spawnTimer);
-  clearInterval(gameTimer);
-  clearInterval(collisionTimer);
-
-  heartItems.forEach(h=>h.remove());
-  heartItems=[];
-
-  score=0;
-  seconds=30;
-  running=true;
-
-  document.getElementById("score").textContent=0;
-  document.getElementById("timer").textContent=30;
-  document.getElementById("catchMessage").textContent="";
-  document.getElementById("level2Next").style.display="none";
-
-  spawnTimer=setInterval(createHeart,650);
-  collisionTimer=setInterval(checkHearts,40);
-
-  gameTimer=setInterval(()=>{
-    seconds--;
-    document.getElementById("timer").textContent=seconds;
-    if(seconds<=0) endCatch(false);
-  },1000);
-}
-
-function endCatch(won) {
-  running=false;
-  clearInterval(spawnTimer);
-  clearInterval(gameTimer);
-  clearInterval(collisionTimer);
-
-  if(won) {
-    document.getElementById("catchMessage").textContent=
-      "Amazing! You caught all the love! 🎉💗";
-    document.getElementById("level2Next").style.display="inline-block";
-  } else {
-    document.getElementById("catchMessage").textContent=
-      "Aww! You caught "+score+" hearts. Try again! 💕";
-  }
-}
-
-function startQuiz() {
-  showPage("level3");
-  quizIndex=0;
-  showQuestion();
-}
-
-/* LEVEL 3 - LOVE QUIZ */
-
-const questions = [
-  {
-    q:"Who is the cutest person? 🥹",
-    a:["Me 😘","You 💗","Both of us 🥰"]
-  },
-  {
-    q:"Who gets jealous more easily? 😂",
-    a:["Me","You","Both!"]
-  },
-  {
-    q:"What is better than a perfect day?",
-    a:["A day with you ❤️","Sleeping","Shopping"]
-  },
-  {
-    q:"If we could travel anywhere?",
-    a:["Paris 🌹","Beach 🏖️","Anywhere together 💕"]
-  },
-  {
-    q:"What makes a relationship beautiful?",
-    a:["Trust","Love","Both together 💗"]
-  },
-  {
-    q:"Would you choose this love story again?",
-    a:["Absolutely! 💍","Always ❤️","In every lifetime 🥹"]
-  }
-];
-
-let quizIndex=0;
-
-function showQuestion() {
-  const q=questions[quizIndex];
-  document.getElementById("questionNumber").textContent=
-    "Question "+(quizIndex+1)+"/"+questions.length;
-  document.getElementById("question").textContent=q.q;
-  document.getElementById("quizMessage").textContent="";
-  document.getElementById("nextQuestion").style.display="none";
-
-  const box=document.getElementById("answers");
-  box.innerHTML="";
-
-  q.a.forEach(answer=>{
-    const btn=document.createElement("button");
-    btn.className="option";
-    btn.textContent=answer;
-    btn.onclick=()=>{
-      box.querySelectorAll("button").forEach(b=>b.disabled=true);
-      document.getElementById("quizMessage").textContent=
-        "Aww! Every answer is special when it's about love! 💗";
-      document.getElementById("nextQuestion").style.display="inline-block";
-      document.getElementById("nextQuestion").textContent=
-        quizIndex===questions.length-1?"Continue to Level 4 💌":"Next Question 💕";
-    };
-    box.appendChild(btn);
-  });
-}
-
-function nextQuiz() {
-  quizIndex++;
-  if(quizIndex<questions.length) {
-    showQuestion();
-  } else {
-    showPage("level4");
-  }
-}
-
-/* LEVEL 4 - LOVE LETTER */
-
-function checkLetter() {
-  const answers=[
-    document.getElementById("word1").value,
-    document.getElementById("word2").value,
-    document.getElementById("word3").value,
-    document.getElementById("word4").value
-  ];
-
-  if(answers.includes("")) {
-    document.getElementById("letterMessage").textContent=
-      "Choose all the missing words first! 💗";
-    return;
-  }
-
-  if(answers.join(",")==="person, happy, forever, world") {
-    document.getElementById("letterMessage").textContent=
-      "Beautiful! You completed our love letter! 💌❤️";
-    document.getElementById("level4Next").style.display="inline-block";
-  } else {
-    document.getElementById("letterMessage").textContent=
-      "Not quite! Try again, love! 🥰";
-  }
-}
-
-/* LEVEL 5 - MEMORY CARDS */
-
-const memories=[
-  {e:"🌸",t:"A beautiful beginning"},
-  {e:"😂",t:"Our silly moments"},
-  {e:"💗",t:"Little acts of love"},
-  {e:"🌎",t:"A world together"}
-];
-
-let openedCards=0;
-
-function startMemory() {
-  showPage("level5");
-  openedCards=0;
-  document.getElementById("memoryMessage").textContent=
-    "Open all 4 cards! 💗";
-  document.getElementById("finalUnlock").style.display="none";
-
-  const grid=document.getElementById("memoryGrid");
-  grid.innerHTML="";
-
-  memories.forEach(memory=>{
-    const card=document.createElement("div");
-    card.className="memoryCard";
-    card.textContent="🎁";
-    card.onclick=()=>{
-      if(card.classList.contains("opened")) return;
-
-      card.classList.add("opened");
-      card.innerHTML="<div>"+memory.e+"<br>"+memory.t+"</div>";
-      openedCards++;
-
-      if(openedCards===4) {
-        document.getElementById("memoryMessage").textContent=
-          "Every little moment becomes special with love! 🥹💗";
-        document.getElementById("finalUnlock").style.display="inline-block";
-      }
-    };
-    grid.appendChild(card);
-  });
-}
-
-/* FINAL HUG SURPRISE */
-
-function sendHugs() {
-  document.getElementById("hugMessage").textContent=
-    "Sending you unlimited hugs, Duggu! 🤗💗";
-
-  for(let i=0;i<35;i++) {
-    setTimeout(()=>{
-      const h=document.createElement("div");
-      h.className="floating";
-      h.textContent="🤗";
-      h.style.left=Math.random()*95+"vw";
-      h.style.fontSize=(25+Math.random()*25)+"px";
-      h.style.animationDuration=(3+Math.random()*3)+"s";
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(),6500);
-    },i*90);
-  }
-}
-
+setInterval(createHeart, 900);
 </script>
 
+<style>
+#catchLevel {
+  display: none;
+  width: min(92%, 440px);
+  padding: 25px 18px;
+  background: #fff9fc;
+  border: 2px solid white;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 12px 40px #d88aab55;
+  color: #a34d75;
+  position: relative;
+  z-index: 5;
+}
+
+#catchArea {
+  width: 100%;
+  max-width: 340px;
+  height: 350px;
+  margin: 15px auto;
+  background: linear-gradient(#ffe3f0, #f2e2ff);
+  border: 2px solid #f4b4d0;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+#loveBasket {
+  position: absolute;
+  bottom: 10px;
+  left: 130px;
+  font-size: 42px;
+  line-height: 1;
+  cursor: grab;
+  user-select: none;
+}
+
+.fallingLove {
+  position: absolute;
+  top: -35px;
+  font-size: 27px;
+  animation: loveFall 3s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes loveFall {
+  to { top: 360px; }
+}
+
+#catchResult {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 12px;
+}
+
+</style>
+
+<div id="catchLevel">
+
+  <div style="font-size:40px">💗</div>
+  <h2>Level 2: Catch My Heart</h2>
+  <p>Catch 20 falling hearts in 30 seconds!</p>
+
+  <h3>
+    Score: <span id="heartScore">0</span> / 20
+    &nbsp; | &nbsp;
+    Time: <span id="heartTime">30</span>s
+  </h3>
+
+  <div id="catchArea">
+    <div id="loveBasket">🧺</div>
+  </div>
+
+  <p>Move your mouse or finger to catch hearts 💕</p>
+
+  <div id="catchResult"></div>
+
+  <button onclick="startCatchGame()">Start Game 💗</button>
+
+  <button onclick="backToStory()">Back to Story</button>
+
+</div>
+
+<script>
+const catchLevel = document.getElementById("catchLevel");
+const catchArea = document.getElementById("catchArea");
+const loveBasket = document.getElementById("loveBasket");
+
+let heartPoints = 0;
+let heartSeconds = 30;
+let spawnTimer;
+let gameTimer;
+let checkTimer;
+let gameRunning = false;
+
+const mainCard = document.querySelector("body > .card");
+
+// Add Level 2 button to Level 1 ending screen
+document.getElementById("scene5").insertAdjacentHTML(
+  "beforeend",
+  '<button onclick="openCatchGame()">Play Level 2 💌</button>'
+);
+
+function openCatchGame() {
+  mainCard.style.display = "none";
+  catchLevel.style.display = "block";
+  document.getElementById("catchResult").innerHTML = "";
+}
+
+function backToStory() {
+  stopCatchGame();
+  catchLevel.style.display = "none";
+  mainCard.style.display = "block";
+  nextScene(5);
+}
+
+function moveBasket(event) {
+  if (!gameRunning) return;
+
+  const areaRect = catchArea.getBoundingClientRect();
+
+  let position = event.clientX - areaRect.left
+    - loveBasket.offsetWidth / 2;
+
+  position = Math.max(
+    0,
+    Math.min(position, areaRect.width - loveBasket.offsetWidth)
+  );
+
+  loveBasket.style.left = position + "px";
+}
+
+catchArea.addEventListener("pointermove", moveBasket);
+
+function createFallingHeart() {
+  if (!gameRunning) return;
+
+  const heart = document.createElement("div");
+
+  heart.className = "fallingLove";
+  heart.innerHTML = ["💗", "💖", "💕", "💝"][
+    Math.floor(Math.random() * 4)
+  ];
+
+  heart.style.left =
+    Math.random() * (catchArea.clientWidth - 35) + "px";
+
+  catchArea.appendChild(heart);
+}
+
+function checkCatches() {
+  if (!gameRunning) return;
+
+  const basket = loveBasket.getBoundingClientRect();
+
+  document.querySelectorAll(".fallingLove").forEach(heart => {
+    const h = heart.getBoundingClientRect();
+
+    if (
+      h.bottom >= basket.top &&
+      h.top <= basket.bottom &&
+      h.right >= basket.left &&
+      h.left <= basket.right
+    ) {
+      heart.remove();
+      heartPoints++;
+
+      document.getElementById("heartScore").textContent =
+        heartPoints;
+
+      if (heartPoints >= 20) {
+        finishCatchGame(true);
+      }
+    } else if (h.top > catchArea.getBoundingClientRect().bottom) {
+      heart.remove();
+    }
+  });
+}
+
+function startCatchGame() {
+  stopCatchGame();
+
+  heartPoints = 0;
+  heartSeconds = 30;
+  gameRunning = true;
+
+  document.getElementById("heartScore").textContent = "0";
+  document.getElementById("heartTime").textContent = "30";
+  document.getElementById("catchResult").innerHTML = "";
+
+  document.querySelectorAll(".fallingLove").forEach(h => h.remove());
+
+  loveBasket.style.left = "130px";
+
+  createFallingHeart();
+
+  spawnTimer = setInterval(createFallingHeart, 650);
+  checkTimer = setInterval(checkCatches, 40);
+
+  gameTimer = setInterval(() => {
+    heartSeconds--;
+
+    document.getElementById("heartTime").textContent =
+      heartSeconds;
+
+    if (heartSeconds <= 0) {
+      finishCatchGame(heartPoints >= 20);
+    }
+  }, 1000);
+}
+
+function stopCatchGame() {
+  gameRunning = false;
+
+  clearInterval(spawnTimer);
+  clearInterval(gameTimer);
+  clearInterval(checkTimer);
+
+  document.querySelectorAll(".fallingLove").forEach(h => h.remove());
+}
+
+function finishCatchGame(won) {
+  stopCatchGame();
+
+  if (won) {
+    document.getElementById("catchResult").innerHTML =
+      "🎉 Level 2 Completed! You caught all the love! 💗";
+  } else {
+    document.getElementById("catchResult").innerHTML =
+      "Aww! You caught " + heartPoints +
+      " hearts. Try again, love! 💕";
+  }
+}
+</script>
 </body>
 </html>
