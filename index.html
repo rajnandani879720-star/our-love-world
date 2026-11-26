@@ -655,5 +655,246 @@ finishCatchGame = function(won) {
   }
 };
 </script>
+<style>
+#dateLevel {
+  display:none;
+  width:min(94%,460px);
+  padding:24px 16px;
+  background:#fff8fc;
+  border-radius:26px;
+  text-align:center;
+  color:#a34d75;
+  position:relative;
+  z-index:12;
+  box-shadow:0 12px 40px #d88aab55;
+}
+
+.datePanel {
+  background:#fff0f6;
+  border-radius:20px;
+  padding:15px;
+  margin:15px 0;
+}
+
+.dateChoices {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:9px;
+}
+
+.dateOption {
+  background:white;
+  border:2px solid #f2b5ce;
+  color:#a34d75;
+  border-radius:14px;
+  padding:11px;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.dateOption.selected {
+  background:#ffd7e9;
+  border:3px solid #dc6998;
+}
+
+.datePreview {
+  font-size:35px;
+  padding:12px;
+}
+
+#dateResult {
+  line-height:1.9;
+  font-size:17px;
+}
+
+#dateLevel button.mainDateBtn {
+  background:#e879a5;
+  color:white;
+  border:0;
+  border-radius:22px;
+  padding:13px 23px;
+  margin:10px;
+  cursor:pointer;
+  font-size:16px;
+}
+</style>
+
+<div id="dateLevel">
+
+  <div style="font-size:48px">💑</div>
+  <h2>Level 4: Our Dream Date</h2>
+  <p>Let's get ready for our special date! 💗</p>
+
+  <div class="datePanel">
+    <h3>👗 Girl's Makeover</h3>
+    <div class="datePreview" id="girlPreview">👩🏻‍🦰</div>
+
+    <h4>Choose Dress</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('girlDress','🌸 Pink Gown','👗')">🌸 Pink Gown</button>
+      <button class="dateOption" onclick="pickDate('girlDress','🖤 Black Dress','👗')">🖤 Black Dress</button>
+      <button class="dateOption" onclick="pickDate('girlDress','🤍 White Dress','👗')">🤍 White Dress</button>
+      <button class="dateOption" onclick="pickDate('girlDress','💜 Purple Skirt','👗')">💜 Purple Skirt</button>
+    </div>
+
+    <h4>Hairstyle 💇‍♀️</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('girlHair','Long Hair','💇‍♀️')">💇‍♀️ Long</button>
+      <button class="dateOption" onclick="pickDate('girlHair','Ponytail','🎀')">🎀 Ponytail</button>
+      <button class="dateOption" onclick="pickDate('girlHair','Bun','👱‍♀️')">👱‍♀️ Bun</button>
+    </div>
+
+    <h4>Accessories 💍</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('girlAccessory','Earrings','💎')">💎 Earrings</button>
+      <button class="dateOption" onclick="pickDate('girlAccessory','Tiara','👑')">👑 Tiara</button>
+      <button class="dateOption" onclick="pickDate('girlAccessory','Necklace','📿')">📿 Necklace</button>
+    </div>
+
+    <h4>Shoes 👠</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('girlShoes','Heels','👠')">👠 Heels</button>
+      <button class="dateOption" onclick="pickDate('girlShoes','Sneakers','👟')">👟 Sneakers</button>
+    </div>
+  </div>
+
+  <div class="datePanel">
+    <h3>🤵 Boy's Makeover</h3>
+    <div class="datePreview" id="boyPreview">🧑🏻‍🦱</div>
+
+    <h4>Choose Outfit</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('boyDress','🖤 Black Suit','🤵')">🖤 Black Suit</button>
+      <button class="dateOption" onclick="pickDate('boyDress','🤍 White Shirt','👔')">🤍 White Shirt</button>
+      <button class="dateOption" onclick="pickDate('boyDress','💙 Blue Jacket','🧥')">💙 Blue Jacket</button>
+    </div>
+
+    <h4>Hairstyle 💇‍♂️</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('boyHair','Classic Hair','💇‍♂️')">💇‍♂️ Classic</button>
+      <button class="dateOption" onclick="pickDate('boyHair','Curly Hair','🧑‍🦱')">🧑‍🦱 Curly</button>
+      <button class="dateOption" onclick="pickDate('boyHair','Modern Hair','🧑‍🦰')">🧑‍🦰 Modern</button>
+    </div>
+
+    <h4>Accessories ⌚</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('boyAccessory','Watch','⌚')">⌚ Watch</button>
+      <button class="dateOption" onclick="pickDate('boyAccessory','Glasses','🕶️')">🕶️ Glasses</button>
+      <button class="dateOption" onclick="pickDate('boyAccessory','Chain','📿')">📿 Chain</button>
+    </div>
+
+    <h4>Shoes 👞</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('boyShoes','Formal Shoes','👞')">👞 Formal</button>
+      <button class="dateOption" onclick="pickDate('boyShoes','Sneakers','👟')">👟 Sneakers</button>
+    </div>
+  </div>
+
+  <div class="datePanel">
+    <h3>🌹 Plan Your Date</h3>
+
+    <h4>Dinner 🍕</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('food','Pizza','🍕')">🍕 Pizza</button>
+      <button class="dateOption" onclick="pickDate('food','Cake & Coffee','🍰')">🍰 Cake</button>
+      <button class="dateOption" onclick="pickDate('food','Pasta','🍝')">🍝 Pasta</button>
+    </div>
+
+    <h4>Date Location 🌷</h4>
+    <div class="dateChoices">
+      <button class="dateOption" onclick="pickDate('place','Beach','🏖️')">🏖️ Beach</button>
+      <button class="dateOption" onclick="pickDate('place','Rose Garden','🌹')">🌹 Garden</button>
+      <button class="dateOption" onclick="pickDate('place','Candlelight Dinner','🕯️')">🕯️ Candlelight</button>
+    </div>
+  </div>
+
+  <button class="mainDateBtn" onclick="finishDate()">Reveal Our Dream Date 💗</button>
+
+  <div id="dateResult"></div>
+
+  <button class="mainDateBtn" onclick="backToKiss()">Back 💕</button>
+
+</div>
+
+<script>
+const dateSelections = {};
+
+function pickDate(category, choice, emoji) {
+  dateSelections[category] = choice;
+
+  const button = event.currentTarget;
+  button.parentElement.querySelectorAll(".dateOption")
+    .forEach(b => b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  if (category.startsWith("girl")) {
+    document.getElementById("girlPreview").textContent =
+      "👩🏻‍🦰 " + emoji;
+  }
+
+  if (category.startsWith("boy")) {
+    document.getElementById("boyPreview").textContent =
+      "🧑🏻‍🦱 " + emoji;
+  }
+}
+
+function openDateGame() {
+  document.getElementById("kissLevel").style.display = "none";
+  document.getElementById("dateLevel").style.display = "block";
+}
+
+function finishDate() {
+  const required = [
+    "girlDress","girlHair","girlAccessory","girlShoes",
+    "boyDress","boyHair","boyAccessory","boyShoes",
+    "food","place"
+  ];
+
+  const missing = required.some(key => !dateSelections[key]);
+
+  if (missing) {
+    document.getElementById("dateResult").innerHTML =
+      "Please complete both makeovers and your date choices! 🥹💗";
+    return;
+  }
+
+  document.getElementById("dateResult").innerHTML =
+    "<h2>💑 Our Dream Date 💗</h2>" +
+    "<h3>👗 Girl's Look</h3>" +
+    dateSelections.girlDress + "<br>" +
+    dateSelections.girlHair + "<br>" +
+    dateSelections.girlAccessory + "<br>" +
+    dateSelections.girlShoes +
+    "<h3>🤵 Boy's Look</h3>" +
+    dateSelections.boyDress + "<br>" +
+    dateSelections.boyHair + "<br>" +
+    dateSelections.boyAccessory + "<br>" +
+    dateSelections.boyShoes +
+    "<h3>🌹 Our Date</h3>" +
+    dateSelections.food + " at " + dateSelections.place +
+    "<h2>Two hearts, one beautiful date! 💕</h2>" +
+    "Our favourite place is wherever we're together. 😘";
+}
+
+function backToKiss() {
+  document.getElementById("dateLevel").style.display = "none";
+  document.getElementById("kissLevel").style.display = "block";
+}
+
+const previousDateCelebrate = celebrateKiss;
+
+celebrateKiss = function() {
+  previousDateCelebrate();
+
+  if (kissCount === 5) {
+    setTimeout(() => {
+      document.getElementById("kissMessage").innerHTML +=
+        '<br><button onclick="openDateGame()">Play Level 4 👫</button>';
+    }, 750);
+  }
+};
+</script>
 </body>
 </html>
