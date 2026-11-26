@@ -186,5 +186,240 @@ function createHeart() {
 setInterval(createHeart, 900);
 </script>
 
+<style>
+#catchLevel {
+  display: none;
+  width: min(92%, 440px);
+  padding: 25px 18px;
+  background: #fff9fc;
+  border: 2px solid white;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 12px 40px #d88aab55;
+  color: #a34d75;
+  position: relative;
+  z-index: 5;
+}
+
+#catchArea {
+  width: 100%;
+  max-width: 340px;
+  height: 350px;
+  margin: 15px auto;
+  background: linear-gradient(#ffe3f0, #f2e2ff);
+  border: 2px solid #f4b4d0;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+#loveBasket {
+  position: absolute;
+  bottom: 10px;
+  left: 130px;
+  font-size: 42px;
+  line-height: 1;
+  cursor: grab;
+  user-select: none;
+}
+
+.fallingLove {
+  position: absolute;
+  top: -35px;
+  font-size: 27px;
+  animation: loveFall 3s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes loveFall {
+  to { top: 360px; }
+}
+
+#catchResult {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 12px;
+}
+
+</style>
+
+<div id="catchLevel">
+
+  <div style="font-size:40px">💗</div>
+  <h2>Level 2: Catch My Heart</h2>
+  <p>Catch 20 falling hearts in 30 seconds!</p>
+
+  <h3>
+    Score: <span id="heartScore">0</span> / 20
+    &nbsp; | &nbsp;
+    Time: <span id="heartTime">30</span>s
+  </h3>
+
+  <div id="catchArea">
+    <div id="loveBasket">🧺</div>
+  </div>
+
+  <p>Move your mouse or finger to catch hearts 💕</p>
+
+  <div id="catchResult"></div>
+
+  <button onclick="startCatchGame()">Start Game 💗</button>
+
+  <button onclick="backToStory()">Back to Story</button>
+
+</div>
+
+<script>
+const catchLevel = document.getElementById("catchLevel");
+const catchArea = document.getElementById("catchArea");
+const loveBasket = document.getElementById("loveBasket");
+
+let heartPoints = 0;
+let heartSeconds = 30;
+let spawnTimer;
+let gameTimer;
+let checkTimer;
+let gameRunning = false;
+
+const mainCard = document.querySelector("body > .card");
+
+// Add Level 2 button to Level 1 ending screen
+document.getElementById("scene5").insertAdjacentHTML(
+  "beforeend",
+  '<button onclick="openCatchGame()">Play Level 2 💌</button>'
+);
+
+function openCatchGame() {
+  mainCard.style.display = "none";
+  catchLevel.style.display = "block";
+  document.getElementById("catchResult").innerHTML = "";
+}
+
+function backToStory() {
+  stopCatchGame();
+  catchLevel.style.display = "none";
+  mainCard.style.display = "block";
+  nextScene(5);
+}
+
+function moveBasket(event) {
+  if (!gameRunning) return;
+
+  const areaRect = catchArea.getBoundingClientRect();
+
+  let position = event.clientX - areaRect.left
+    - loveBasket.offsetWidth / 2;
+
+  position = Math.max(
+    0,
+    Math.min(position, areaRect.width - loveBasket.offsetWidth)
+  );
+
+  loveBasket.style.left = position + "px";
+}
+
+catchArea.addEventListener("pointermove", moveBasket);
+
+function createFallingHeart() {
+  if (!gameRunning) return;
+
+  const heart = document.createElement("div");
+
+  heart.className = "fallingLove";
+  heart.innerHTML = ["💗", "💖", "💕", "💝"][
+    Math.floor(Math.random() * 4)
+  ];
+
+  heart.style.left =
+    Math.random() * (catchArea.clientWidth - 35) + "px";
+
+  catchArea.appendChild(heart);
+}
+
+function checkCatches() {
+  if (!gameRunning) return;
+
+  const basket = loveBasket.getBoundingClientRect();
+
+  document.querySelectorAll(".fallingLove").forEach(heart => {
+    const h = heart.getBoundingClientRect();
+
+    if (
+      h.bottom >= basket.top &&
+      h.top <= basket.bottom &&
+      h.right >= basket.left &&
+      h.left <= basket.right
+    ) {
+      heart.remove();
+      heartPoints++;
+
+      document.getElementById("heartScore").textContent =
+        heartPoints;
+
+      if (heartPoints >= 20) {
+        finishCatchGame(true);
+      }
+    } else if (h.top > catchArea.getBoundingClientRect().bottom) {
+      heart.remove();
+    }
+  });
+}
+
+function startCatchGame() {
+  stopCatchGame();
+
+  heartPoints = 0;
+  heartSeconds = 30;
+  gameRunning = true;
+
+  document.getElementById("heartScore").textContent = "0";
+  document.getElementById("heartTime").textContent = "30";
+  document.getElementById("catchResult").innerHTML = "";
+
+  document.querySelectorAll(".fallingLove").forEach(h => h.remove());
+
+  loveBasket.style.left = "130px";
+
+  createFallingHeart();
+
+  spawnTimer = setInterval(createFallingHeart, 650);
+  checkTimer = setInterval(checkCatches, 40);
+
+  gameTimer = setInterval(() => {
+    heartSeconds--;
+
+    document.getElementById("heartTime").textContent =
+      heartSeconds;
+
+    if (heartSeconds <= 0) {
+      finishCatchGame(heartPoints >= 20);
+    }
+  }, 1000);
+}
+
+function stopCatchGame() {
+  gameRunning = false;
+
+  clearInterval(spawnTimer);
+  clearInterval(gameTimer);
+  clearInterval(checkTimer);
+
+  document.querySelectorAll(".fallingLove").forEach(h => h.remove());
+}
+
+function finishCatchGame(won) {
+  stopCatchGame();
+
+  if (won) {
+    document.getElementById("catchResult").innerHTML =
+      "🎉 Level 2 Completed! You caught all the love! 💗";
+  } else {
+    document.getElementById("catchResult").innerHTML =
+      "Aww! You caught " + heartPoints +
+      " hearts. Try again, love! 💕";
+  }
+}
+</script>
 </body>
 </html>
